@@ -10,6 +10,9 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "module": "ESNext",
     "paths": {
       "@/*": ["./src/*"]
     }

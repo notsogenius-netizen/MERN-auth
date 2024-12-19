@@ -9,7 +9,7 @@ const AppLayout = ({ children }: PropsWithChildren) => {
           <ModeToggle />
         </div>
       </header>
-      <main className="min-h-screen container mx-auto px-6 py-8">
+      <main className="min-h-screen container mx-auto px-4 py-8">
         {children}
       </main>
       <footer className="border-t backdrop-blur py-6 supports-[backdrop-filter]:bg-background/60">

@@ -12,3 +12,14 @@ export const createAccount = async (data: any) =>
 
 export const verifyEmail = async (verificationCode: string | undefined) =>
   await API.get(`/auth/email/verify/${verificationCode}`);
+
+export const sendPasswordResetEmail = async (email: string) =>
+  await API.post("/auth/password/forgot", { email });
+
+export const resetPassword = async ({
+  verificationCode,
+  password,
+}: {
+  verificationCode: string;
+  password: string;
+}) => await API.post("/auth/password/reset", { verificationCode, password });

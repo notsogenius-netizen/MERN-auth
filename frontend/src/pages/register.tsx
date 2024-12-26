@@ -9,37 +9,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createAccount } from "@/lib/api";
+import { registerFormSchema } from "@/types/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 
-export const formSchema = z
-  .object({
-    email: z.string().min(1, { message: "Email is required" }).max(50),
-    password: z
-      .string()
-      .min(6, { message: "Password must be at least 6 characters long" })
-      .max(50),
-    confirmPassword: z
-      .string()
-      .min(6, { message: "Please confirm your password" }),
-  })
-  .superRefine((val, ctx) => {
-    if (val.password !== val.confirmPassword) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Password does not match.",
-        path: ["confirmPassword"],
-      });
-    }
-  });
 const Register = () => {
   const navigate = useNavigate();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof registerFormSchema>>({
+    resolver: zodResolver(registerFormSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -47,7 +28,7 @@ const Register = () => {
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: z.infer<typeof registerFormSchema>) => {
     registerUser.mutate(data);
   };
 

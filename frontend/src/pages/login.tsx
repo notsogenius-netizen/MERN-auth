@@ -14,20 +14,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/lib/api";
-
-export const formSchema = z.object({
-  email: z.string().min(1, { message: "Email is required" }).max(50),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters long" })
-    .max(50),
-});
+import { loginFormSchema } from "@/types/schema";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",
       password: "",
